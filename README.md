@@ -1,2 +1,6 @@
 # GoFo-Booking-System
-GoFo is a playground booking system that enable players to book playgrounds online.
+This is a Software Engineering project, it is designed to serve the player and playground needs for booking a playground online. The system stores information about players, playgrounds and playground owners.
+***
+## Tools used to develop the project
+- Lucid.app
+- Visual Paradigm
