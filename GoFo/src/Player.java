@@ -1,12 +1,29 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * A class that inherits User, and allows player to book playgrounds and do player functionalities.
+ */
 public class Player extends User {
 
+    /**
+     * A constructor that sets the attributes of the player
+     * @param firstName the first name of the player
+     * @param lastName the last name of the player
+     * @param username the username of the player
+     * @param email the e-mail of the player
+     * @param password the password of the player
+     * @param phoneNumber the phone number of the player
+     * @param account the account of the player
+     */
     public Player(String firstName, String lastName, String username, String email, String password, String phoneNumber, Account account) {
         super(firstName, lastName, username, email, password, phoneNumber, account);
     }
 
+    /**
+     * Gets all the available playgrounds for booking
+     * @return a list of the available playgrounds
+     */
     public ArrayList<Playground> getAvailablePlaygrounds() {
         ArrayList<Playground> availablePlaygrounds = new ArrayList<Playground>();
 
@@ -19,6 +36,11 @@ public class Player extends User {
         return availablePlaygrounds;
     }
 
+    /**
+     * Filters the playgrounds by an address
+     * @param address the address that the playgrounds filter upon it
+     * @return a list of the filtered playgrounds
+     */
     public ArrayList<Playground> filterPlaygroundsByAddress(Address address) {
         ArrayList<Playground> filteredPlaygrounds = new ArrayList<Playground>();
 
@@ -33,6 +55,11 @@ public class Player extends User {
         return filteredPlaygrounds;
     }
 
+    /**
+     * Filters the playgrounds by a time slot
+     * @param timeSlot the time slot that the playgrounds filter upon it
+     * @return a list of the filtered playgrounds
+     */
     public ArrayList<Playground> filterPlaygroundsByTime(TimeSlot timeSlot) {
         ArrayList<Playground> filteredPlaygrounds = new ArrayList<Playground>();
 
@@ -50,6 +77,12 @@ public class Player extends User {
         return filteredPlaygrounds;
     }
 
+    /**
+     * Books a playground in a specific time slot a transfer the booking cost from player's account to playground owner's account
+     * @param playground the playground to be booked
+     * @param timeSlot the slot that will be booked from the playground
+     * @return true if the booking is done successfully, otherwise false
+     */
     public boolean bookPlayground(Playground playground, TimeSlot timeSlot) {
         for (TimeSlot slot : playground.getBookedSlots()) {
             if (timeSlot.overlaps(slot)) {
@@ -72,6 +105,12 @@ public class Player extends User {
         return true;
     }
 
+    /**
+     * Creates a new team
+     * @param teamName the name of the new team
+     * @param teamMembers the player who will join the team
+     * @return the created team
+     */
     public Team createTeam(String teamName, ArrayList<Player> teamMembers) {
         Team newTeam = new Team(teamName);
         for (Player player : teamMembers) {
@@ -81,6 +120,11 @@ public class Player extends User {
         return newTeam;
     }
 
+    /**
+     * Enables player to leave a team
+     * @param team the team which the player wants to leave
+     * @return if the player left team successfully, otherwise false
+     */
     public boolean leaveTeam(Team team) {
         if (team.getPlayers().contains(this)) {
             team.deletePlayer(this);
@@ -91,6 +135,10 @@ public class Player extends User {
         return false;
     }
 
+    /**
+     * Sends an invitation to team members
+     * @param team the team to be sent the invitation
+     */
     public void sendInvitation(Team team) {
         for (Player player : team.getPlayers()) {
             if (player.email.equals(this.email)) {
@@ -100,10 +148,17 @@ public class Player extends User {
         }
     }
 
+    /**
+     * Enables player to report a playground
+     * @param playground the playground to be reported
+     */
     public void reportPlayground(Playground playground) {
         playground.setNumberOfReports(playground.getNumberOfReports() + 1);
     }
 
+    /**
+     * Enables player to register to the system
+     */
     @Override
     void register() {
         GoFoSystem.addPlayer(this);

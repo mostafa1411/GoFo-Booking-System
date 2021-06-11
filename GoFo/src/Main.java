@@ -1,7 +1,15 @@
+/**
+ * @author Mostafa Abdullah Mohamed
+ */
+
 import java.util.ArrayList;
 
 public class Main {
 
+    /**
+     * main method that tests the program functions
+     * @param args
+     */
     public static void main(String[] args) {
 
         Administrator admin = new Administrator("Admin", "adminPass");
